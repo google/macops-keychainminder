@@ -53,7 +53,10 @@ BOOL ValidateLoginPassword(NSString *newPassword) {
 BOOL ValidateLoginKeychainPassword(NSString *oldPassword) {
   // Get default keychain path
   SecKeychainRef defaultKeychain;
-  SecKeychainCopyDefault(&defaultKeychain);
+  if (SecKeychainCopyDefault(&defaultKeychain) != errSecSuccess) {
+    if (defaultKeychain) CFRelease(defaultKeychain);
+    return YES;
+  }
   UInt32 maxPathLen = MAXPATHLEN;
   char keychainPath[MAXPATHLEN];
   SecKeychainGetPath(defaultKeychain, &maxPathLen, keychainPath);
