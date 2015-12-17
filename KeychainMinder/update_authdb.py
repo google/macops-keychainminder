@@ -29,7 +29,8 @@ import sys
 
 
 KEYCHAIN_MINDER_MECHANISM = 'KeychainMinder:check,privileged'
-SCREENSAVER_RULE = 'authenticate-session-owner-or-admin'
+SCREENSAVER_RULE = 'authenticate-session-owner'
+SCREENSAVER_RULE_ALLOW_ADMIN_UNLOCK = 'authenticate-session-owner-or-admin'
 SCREENSAVER_PRETTY_RULE = 'use-login-window-ui'
 
 AUTHENTICATE_RIGHT = 'authenticate'
@@ -57,7 +58,7 @@ def _SetRightData(right, data):
   return stderr.count('YES') == 1
 
 
-def InstallPlugin():
+def InstallPlugin(allow_admin_unlock, no_screensaver):
   """Install the plugin to both rules and update screensaver right."""
   for right in [AUTHENTICATE_RIGHT, LOGIN_DONE_RIGHT]:
     data = _GetRightData(right)
@@ -72,9 +73,16 @@ def InstallPlugin():
     else:
       print '%s: Mechanism already installed.' % right
 
+  if no_screensaver:
+    return
+
+  target_rule = SCREENSAVER_RULE
+  if allow_admin_unlock:
+    target_rule = SCREENSAVER_RULE_ALLOW_ADMIN_UNLOCK
+
   data = _GetRightData(SCREENSAVER_RIGHT)
-  if data.get('rule') != [SCREENSAVER_RULE]:
-    data['rule'] = [SCREENSAVER_RULE]
+  if data.get('rule') != [target_rule]:
+    data['rule'] = [target_rule]
     if _SetRightData(SCREENSAVER_RIGHT, data):
       print '%s: Rule updated.' % SCREENSAVER_RIGHT
     else:
@@ -83,7 +91,7 @@ def InstallPlugin():
     print '%s: Rule already correct.' % SCREENSAVER_RIGHT
 
 
-def RemovePlugin(restore_screensaver=False):
+def RemovePlugin(restore_screensaver):
   """Remove the plugin from both rules."""
   for right in [AUTHENTICATE_RIGHT, LOGIN_DONE_RIGHT]:
     data = _GetRightData(right)
@@ -117,26 +125,32 @@ def CheckForRoot():
 
 def ParseOptions():
   parser = argparse.ArgumentParser()
-  group = parser.add_mutually_exclusive_group(required=True)
-  group.add_argument(
-      '--install', action='store_true', dest='install', help='Install plugin')
-  group.add_argument(
-      '--remove', action='store_true', dest='remove', help='Remove plugin')
-  group.add_argument(
-      '--restore_screensaver', action='store_true', dest='restore_screensaver',
-      help='Restore \'pretty\' screensaver UI')
+  subparsers = parser.add_subparsers(dest='subparser_name')
+
+  parser_install = subparsers.add_parser('install')
+  parser_install.add_argument(
+      '--allow-admin-unlock', action='store_true', dest='allow_admin_unlock',
+      help='Allow administrators to unlock any session')
+  parser_install.add_argument('--no-screensaver', action='store_true',
+      dest='no_screensaver', help='Don\'t update screensaver rule')
+
+  parser_remove = subparsers.add_parser('remove')
+  parser_remove.add_argument(
+      '--restore-screensaver', action='store_true', dest='restore_screensaver',
+      help='Restore \'new\' screensaver UI')
+
   return parser.parse_args()
 
 
 def main(argv):
   CheckForRoot()
   options = ParseOptions()
-  if options.install:
-    InstallPlugin()
-  elif options.remove:
+
+  if options.subparser_name == 'install':
+    InstallPlugin(allow_admin_unlock=options.allow_admin_unlock,
+                  no_screensaver=options.no_screensaver)
+  elif options.subparser_name == 'remove':
     RemovePlugin(restore_screensaver=options.restore_screensaver)
-  elif options.restore_screensaver:
-    RemovePlugin(restore_screensaver=True)
 
 
 if __name__ == '__main__':
