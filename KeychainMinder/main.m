@@ -89,12 +89,13 @@ OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
 
       // Switch EUID/EGID to the target user so SecKeychain* knows who to affect, validate
       // the login keychain password, then switch back to the previous user.
-      setegid(gid);
-      seteuid(uid);
-      SecKeychainSetUserInteractionAllowed(NO);
-      BOOL passwordValid = ValidateLoginKeychainPassword(password);
-      seteuid(getuid());
-      setegid(getgid());
+      BOOL passwordValid = YES;
+      if (setegid(gid) == 0 && seteuid(uid) == 0) {
+        SecKeychainSetUserInteractionAllowed(NO);
+        passwordValid = ValidateLoginKeychainPassword(password);
+        (void)seteuid(getuid());  // purposefully ignore return values when
+        (void)setegid(getgid());  // resetting back the effective uid/gid.
+      }
 
       // Remove the current user, so they aren't duplicated in a second if
       // the password wasn't valid.
