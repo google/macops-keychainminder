@@ -29,31 +29,44 @@ void SetUsers(NSMutableArray *usersArray) {
 }
 
 BOOL ValidateLoginPassword(NSString *newPassword) {
-  NSError *err = nil;
+  AuthorizationItem right;
+  right.name = "system.login.tty";
+  right.value = NULL;
+  right.valueLength = 0;
+  right.flags = 0;
+  AuthorizationRights authRights;
+  authRights.count = 1;
+  authRights.items = &right;
 
-  ODSession *mySession = [ODSession defaultSession];
+  AuthorizationItem authEnvItems[2];
+  authEnvItems[0].name = kAuthorizationEnvironmentUsername;
+  authEnvItems[0].valueLength = NSUserName().length;
+  authEnvItems[0].value = (void *)[NSUserName() UTF8String];
+  authEnvItems[0].flags = 0;
+  authEnvItems[1].name = kAuthorizationEnvironmentPassword;
+  authEnvItems[1].valueLength = newPassword.length;
+  authEnvItems[1].value = (void *)[newPassword UTF8String];
+  authEnvItems[1].flags = 0;
+  AuthorizationEnvironment authEnv;
+  authEnv.count = 2;
+  authEnv.items = authEnvItems;
 
-  ODNode *myNode = [ODNode nodeWithSession:mySession type:kODNodeTypeAuthentication error:&err];
-  if (err) {
-    NSLog(@"Unable to get node: %@", err);
-    return NO;
-  }
+  AuthorizationFlags authFlags = (kAuthorizationFlagExtendRights);
 
-  ODRecord *myRecord = [myNode recordWithRecordType:kODRecordTypeUsers
-                                               name:NSUserName()
-                                         attributes:nil
-                                              error:&err];
-  if (err) {
-    NSLog(@"Unable to get %@'s record: %@", NSUserName(), err);
-  }
-
-  return [myRecord verifyPassword:newPassword error:nil];
+  // Create an authorization reference, retrieve rights and then release.
+  // CopyRights is where the authorization actually takes place and the result lets us know
+  // whether auth was successful.
+  OSStatus authStatus = AuthorizationCreate(&authRights, &authEnv, authFlags, NULL);
+  return (authStatus == errAuthorizationSuccess);
 }
 
 BOOL ValidateLoginKeychainPassword(NSString *oldPassword) {
   // Get default keychain path
   SecKeychainRef defaultKeychain;
-  SecKeychainCopyDefault(&defaultKeychain);
+  if (SecKeychainCopyDefault(&defaultKeychain) != errSecSuccess) {
+    if (defaultKeychain) CFRelease(defaultKeychain);
+    return YES;
+  }
   UInt32 maxPathLen = MAXPATHLEN;
   char keychainPath[MAXPATHLEN];
   SecKeychainGetPath(defaultKeychain, &maxPathLen, keychainPath);

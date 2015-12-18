@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -13,15 +14,16 @@
         <window title="Keychain Minder" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <rect key="contentRect" x="335" y="390" width="587" height="340"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
-            <value key="minSize" type="size" width="700" height="340"/>
-            <value key="maxSize" type="size" width="700" height="340"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <value key="minSize" type="size" width="587" height="340"/>
+            <value key="maxSize" type="size" width="587" height="340"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="587" height="340"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qOg-tf-pER">
                         <rect key="frame" x="243" y="214" width="100" height="100"/>
+                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Keychain_Locked" id="ZVR-0s-ZNR"/>
                         <connections>
                             <outlet property="nextKeyView" destination="nMs-QZ-8nH" id="miE-io-61T"/>
@@ -35,6 +37,7 @@
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fD-av-7VE">
                                         <rect key="frame" x="149" y="79" width="289" height="17"/>
+                                        <animations/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Do you remember your previous password?" id="Fdi-O8-RFQ">
                                             <font key="font" metaFont="systemBold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -43,6 +46,7 @@
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Tz-fE-q7b">
                                         <rect key="frame" x="18" y="139" width="551" height="34"/>
+                                        <animations/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="ICs-fG-r27">
                                             <font key="font" metaFont="system"/>
                                             <string key="title">Your account password is out of sync with your login keychain password. 
@@ -53,6 +57,7 @@ This can cause problems with applications that use the keychain.</string>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IrD-5c-PpT">
                                         <rect key="frame" x="319" y="13" width="100" height="32"/>
+                                        <animations/>
                                         <buttonCell key="cell" type="push" title="No" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UKP-NR-5tY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -63,6 +68,7 @@ This can cause problems with applications that use the keychain.</string>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMs-QZ-8nH">
                                         <rect key="frame" x="167" y="13" width="100" height="32"/>
+                                        <animations/>
                                         <buttonCell key="cell" type="push" title="Yes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="51w-Oc-WvQ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -73,6 +79,7 @@ This can cause problems with applications that use the keychain.</string>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <animations/>
                             </customView>
                         </subviews>
                         <animations>
@@ -90,6 +97,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCLAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         </animations>
                     </customView>
                 </subviews>
+                <animations/>
             </view>
             <connections>
                 <outlet property="initialFirstResponder" destination="qOg-tf-pER" id="oYc-Gg-UUe"/>

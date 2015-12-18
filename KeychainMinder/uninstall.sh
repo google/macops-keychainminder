@@ -18,7 +18,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-/usr/bin/env python /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/update_authdb.py --remove
+/usr/bin/env python /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/update_authdb.py remove
 /bin/rm -rf /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle
 /bin/rm /Library/LaunchAgents/com.google.corp.keychainminder.plist
 /bin/rm /Library/Preferences/com.google.corp.keychainminder.plist

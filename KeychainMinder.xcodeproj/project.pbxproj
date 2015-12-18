@@ -221,7 +221,7 @@
 		0D0EA9A21B62BFE20041A897 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Google Inc";
 				TargetAttributes = {
 					0D0EA9A91B62BFE20041A897 = {
@@ -330,6 +330,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -391,6 +392,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KeychainMinder/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Security/SecurityAgentPlugins";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.google.corp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -403,6 +405,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KeychainMinder/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Security/SecurityAgentPlugins";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.google.corp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -422,6 +425,7 @@
 				INFOPLIST_FILE = KeychainMinderGUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.google.corp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -435,6 +439,7 @@
 				INFOPLIST_FILE = KeychainMinderGUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.google.corp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

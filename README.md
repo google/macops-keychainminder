@@ -19,10 +19,10 @@ and new passwords) or reset the keychain.
 
 ## Testing
 
-Keychain Minder has had very little testing so far but has been known to 
-work on 10.9.5, 10.10.4 and 10.11 beta 5.
+Keychain Minder has had very little testing so far but has been known to
+work on 10.9.5, 10.10.5 and 10.11.2
 
-There's no real reason it shouldn't work on 10.7 and 10.8, it just hasn't 
+There's no real reason it shouldn't work on 10.7 and 10.8, it just hasn't
 been tried. If you find it works, please let us know!
 
 ## Screenshots
@@ -35,6 +35,14 @@ been tried. If you find it works, please let us know!
 
 There's a package Makefile in the Package folder. You'll need
 [The Luggage](https://github.com/unixorn/luggage) installed to build it.
+
+By default the package will install KeychainMinder so that it works at the screensaver.
+In order to do this, it has to:
+ 1. Restore the screensaver login UI to an older-looking UI. SecurityAgentPlugins
+    do not run under the newer loginwindow-like UI.
+ 2. Set the screensaver login policy to `authenticate-session-owner`.
+
+The `update_authdb.py` script has options to change both of these behaviors.
 
 ## Uninstallation
 
