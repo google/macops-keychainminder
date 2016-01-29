@@ -16,6 +16,8 @@
 
 #import "Common.h"
 
+#import "AppDelegate.h"
+
 @import QuartzCore;
 
 /// From Security.framework
@@ -30,6 +32,7 @@ extern OSStatus SecKeychainChangePassword(SecKeychainRef keychainRef,
 @property IBOutlet NSTextField *currentPassword;
 @property IBOutlet NSButton *okButton;
 @property IBOutlet NSProgressIndicator *spinner;
+
 @end
 
 @implementation PasswordKnownView
@@ -49,6 +52,12 @@ extern OSStatus SecKeychainChangePassword(SecKeychainRef keychainRef,
   self.okButton.enabled = YES;
   [self.spinner stopAnimation:self];
 }
+
+- (IBAction)actuallyForgot:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[[NSApplication sharedApplication] delegate];
+    [appDelegate passwordUnknown:sender];
+}
+
 
 - (IBAction)readyToContinue:(id)sender {
   [self beginProcessing];
