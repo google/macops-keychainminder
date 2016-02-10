@@ -62,10 +62,10 @@ BOOL ValidateLoginPassword(NSString *newPassword) {
 
 BOOL ValidateLoginKeychainPassword(NSString *oldPassword) {
   // Get default keychain path
-  SecKeychainRef defaultKeychain;
+  SecKeychainRef defaultKeychain = NULL;
   if (SecKeychainCopyDefault(&defaultKeychain) != errSecSuccess) {
     if (defaultKeychain) CFRelease(defaultKeychain);
-    return YES;
+    return NO;
   }
   UInt32 maxPathLen = MAXPATHLEN;
   char keychainPath[MAXPATHLEN];
@@ -81,7 +81,7 @@ BOOL ValidateLoginKeychainPassword(NSString *oldPassword) {
   }
 
   // Open and unlock this new keychain file.
-  SecKeychainRef keychainRef;
+  SecKeychainRef keychainRef = NULL;
   SecKeychainOpen(newPath.UTF8String, &keychainRef);
   OSStatus err = SecKeychainUnlock(keychainRef, (UInt32)oldPassword.length,
                                    oldPassword.UTF8String, YES);
