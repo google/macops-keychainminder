@@ -46,7 +46,7 @@ The `update_authdb.py` script has options to change both of these behaviors.
 
 ## Uninstallation
 
-`sudo /Library/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/uninstall.sh`
+`sudo /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/uninstall.sh`
 
 ## How it works
 
