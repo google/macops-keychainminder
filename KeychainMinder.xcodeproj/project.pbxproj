@@ -23,6 +23,9 @@
 		0D19C15F1B6AB329000D5475 /* PasswordNotKnownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D19C15D1B6AB329000D5475 /* PasswordNotKnownView.m */; };
 		0D19C1601B6AB329000D5475 /* PasswordNotKnownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D19C15E1B6AB329000D5475 /* PasswordNotKnownView.xib */; };
 		0D80140E1B6C0074006B8540 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D80140D1B6C0074006B8540 /* PasswordViewController.m */; };
+		C7F073031C99BD9C0049A7C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F073021C99BD9C0049A7C7 /* main.m */; };
+		C7F0730B1C99BDC90049A7C7 /* KeychainMinderAgent in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */; };
+		FC039A183291F172F2435D05 /* libPods-KeychainMinderAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +35,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0D0EA9BE1B62D9AE0041A897;
 			remoteInfo = KeychainMinderGUI;
+		};
+		C7F073071C99BDAC0049A7C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D0EA9A21B62BFE20041A897 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7F072FF1C99BD9C0049A7C7;
+			remoteInfo = KeychainMinderAgent;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -45,6 +55,25 @@
 				0D189CB21B6BE74D0082B239 /* uninstall.sh in CopyFiles */,
 				0D189CB11B6BE74A0082B239 /* update_authdb.py in CopyFiles */,
 				0D189CAE1B6BE4D60082B239 /* KeychainMinderGUI.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F072FE1C99BD9C0049A7C7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C7F0730A1C99BDBE0049A7C7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				C7F0730B1C99BDC90049A7C7 /* KeychainMinderAgent in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +105,11 @@
 		0D19C15E1B6AB329000D5475 /* PasswordNotKnownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordNotKnownView.xib; sourceTree = "<group>"; };
 		0D80140C1B6C0074006B8540 /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		0D80140D1B6C0074006B8540 /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KeychainMinderAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9A7BB8BD2328D9F3836BCEA /* Pods-KeychainMinderAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent.debug.xcconfig"; sourceTree = "<group>"; };
+		C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KeychainMinderAgent; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F073021C99BD9C0049A7C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +127,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7F072FD1C99BD9C0049A7C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC039A183291F172F2435D05 /* libPods-KeychainMinderAgent.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -102,8 +144,10 @@
 				0D0EA9E81B62DCFB0041A897 /* Common */,
 				0D0EA9AC1B62BFE20041A897 /* Plugin */,
 				0D0EA9C01B62D9AE0041A897 /* App */,
+				C7F073011C99BD9C0049A7C7 /* KeychainMinderAgent */,
 				0D0EA9BA1B62C1380041A897 /* Frameworks */,
 				0D0EA9AB1B62BFE20041A897 /* Products */,
+				2BF00F6175E09DA1081D098E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +156,7 @@
 			children = (
 				0D0EA9AA1B62BFE20041A897 /* KeychainMinder.bundle */,
 				0D0EA9BF1B62D9AE0041A897 /* KeychainMinderGUI.app */,
+				C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +178,7 @@
 			children = (
 				0D0EA9B81B62C12E0041A897 /* Security.framework */,
 				0D0EA9B61B62C12B0041A897 /* Foundation.framework */,
+				A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,6 +223,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		2BF00F6175E09DA1081D098E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9A7BB8BD2328D9F3836BCEA /* Pods-KeychainMinderAgent.debug.xcconfig */,
+				FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C7F073011C99BD9C0049A7C7 /* KeychainMinderAgent */ = {
+			isa = PBXGroup;
+			children = (
+				C7F073021C99BD9C0049A7C7 /* main.m */,
+			);
+			path = KeychainMinderAgent;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -187,10 +250,12 @@
 				0D0EA9A61B62BFE20041A897 /* Sources */,
 				0D0EA9A71B62BFE20041A897 /* Frameworks */,
 				0D0EA9E01B62D9CA0041A897 /* CopyFiles */,
+				C7F0730A1C99BDBE0049A7C7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C7F073081C99BDAC0049A7C7 /* PBXTargetDependency */,
 				0D84C9D51B66E7B200A8F499 /* PBXTargetDependency */,
 			);
 			name = KeychainMinder;
@@ -215,6 +280,25 @@
 			productReference = 0D0EA9BF1B62D9AE0041A897 /* KeychainMinderGUI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C7F072FF1C99BD9C0049A7C7 /* KeychainMinderAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7F073061C99BD9C0049A7C7 /* Build configuration list for PBXNativeTarget "KeychainMinderAgent" */;
+			buildPhases = (
+				42D82900ED8F54B11848C462 /* Check Pods Manifest.lock */,
+				C7F072FC1C99BD9C0049A7C7 /* Sources */,
+				C7F072FD1C99BD9C0049A7C7 /* Frameworks */,
+				C7F072FE1C99BD9C0049A7C7 /* CopyFiles */,
+				021642EEBDB1D78FBF1DD38F /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeychainMinderAgent;
+			productName = KeychainMinderAgent;
+			productReference = C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -229,6 +313,9 @@
 					};
 					0D0EA9BE1B62D9AE0041A897 = {
 						CreatedOnToolsVersion = 6.1.1;
+					};
+					C7F072FF1C99BD9C0049A7C7 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -247,6 +334,7 @@
 			targets = (
 				0D0EA9A91B62BFE20041A897 /* KeychainMinder */,
 				0D0EA9BE1B62D9AE0041A897 /* KeychainMinderGUI */,
+				C7F072FF1C99BD9C0049A7C7 /* KeychainMinderAgent */,
 			);
 		};
 /* End PBXProject section */
@@ -265,6 +353,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		021642EEBDB1D78FBF1DD38F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42D82900ED8F54B11848C462 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0D0EA9A61B62BFE20041A897 /* Sources */ = {
@@ -289,6 +410,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7F072FC1C99BD9C0049A7C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7F073031C99BD9C0049A7C7 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -296,6 +425,11 @@
 			isa = PBXTargetDependency;
 			target = 0D0EA9BE1B62D9AE0041A897 /* KeychainMinderGUI */;
 			targetProxy = 0D84C9D41B66E7B200A8F499 /* PBXContainerItemProxy */;
+		};
+		C7F073081C99BDAC0049A7C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7F072FF1C99BD9C0049A7C7 /* KeychainMinderAgent */;
+			targetProxy = C7F073071C99BDAC0049A7C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -444,6 +578,30 @@
 			};
 			name = Release;
 		};
+		C7F073041C99BD9C0049A7C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9A7BB8BD2328D9F3836BCEA /* Pods-KeychainMinderAgent.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C7F073051C99BD9C0049A7C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -470,6 +628,15 @@
 			buildConfigurations = (
 				0D0EA9DA1B62D9AE0041A897 /* Debug */,
 				0D0EA9DB1B62D9AE0041A897 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7F073061C99BD9C0049A7C7 /* Build configuration list for PBXNativeTarget "KeychainMinderAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7F073041C99BD9C0049A7C7 /* Debug */,
+				C7F073051C99BD9C0049A7C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
