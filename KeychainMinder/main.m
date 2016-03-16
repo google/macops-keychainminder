@@ -19,24 +19,6 @@
 
 #include <pwd.h>
 
-#pragma mark Data Types
-
-enum {
-  kMechanismMagic = 'Mchn',
-  kPluginMagic = 'PlgN',
-};
-
-typedef struct {
-  OSType magic;
-  const AuthorizationCallbacks *callbacks;
-} PluginRecord;
-
-typedef struct {
-  OSType magic;
-  AuthorizationEngineRef engineRef;
-  const PluginRecord *pluginRecord;
-} MechanismRecord;
-
 #pragma mark Utility Functions
 
 NSString *GetStringFromContext(MechanismRecord *mechanism, AuthorizationString key) {

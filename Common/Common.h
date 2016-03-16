@@ -12,6 +12,26 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
+#import <Security/AuthorizationPlugin.h>
+
+#pragma mark Data Types
+
+enum {
+  kMechanismMagic = 'Mchn',
+  kPluginMagic = 'PlgN',
+};
+
+typedef struct {
+  OSType magic;
+  const AuthorizationCallbacks *callbacks;
+} PluginRecord;
+
+typedef struct {
+  OSType magic;
+  AuthorizationEngineRef engineRef;
+  const PluginRecord *pluginRecord;
+} MechanismRecord;
+
 @import Foundation;
 @import OpenDirectory;
 
