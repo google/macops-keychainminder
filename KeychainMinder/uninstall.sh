@@ -18,7 +18,17 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-/usr/bin/env python /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/update_authdb.py remove
+updatearg=""
+for arg in $*; do
+  if [ "$arg" == "--restore-screensaver" ]; then
+    updatearg=$arg
+  else
+    echo "unknown argument: $arg"
+    exit 1
+  fi
+done
+
+/usr/bin/env python /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle/Contents/Resources/update_authdb.py remove $updatearg
 /bin/rm -rf /Library/Security/SecurityAgentPlugins/KeychainMinder.bundle
 /bin/rm /Library/LaunchAgents/com.google.corp.keychainminder.plist
 /bin/rm /Library/Preferences/com.google.corp.keychainminder.plist
