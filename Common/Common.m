@@ -30,7 +30,7 @@ void SetUsers(NSMutableArray *usersArray) {
 
 BOOL ValidateLoginPassword(NSString *newPassword) {
   AuthorizationItem right;
-  right.name = "system.login.tty";
+  right.name = "authenticate";
   right.value = NULL;
   right.valueLength = 0;
   right.flags = 0;
