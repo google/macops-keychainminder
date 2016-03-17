@@ -35,6 +35,36 @@ NSString *GetStringFromContext(MechanismRecord *mechanism, AuthorizationString k
   return nil;
 }
 
+uid_t GetUIDFromContex(MechanismRecord *mechanism) {
+  uid_t uid = -2;
+  const AuthorizationValue *value;
+  AuthorizationContextFlags flags;
+  if (mechanism->pluginRecord->callbacks->GetContextValue(mechanism->engineRef,
+                                                          kAuthorizationEnvironmentUID,
+                                                          &flags,
+                                                          &value) == errAuthorizationSuccess) {
+    if ((value->length == sizeof(uid_t)) && (value->data != NULL)) {
+      uid = *(const uid_t *)value->data;
+    }
+  }
+  return uid;
+}
+
+gid_t GetGIDFromContex(MechanismRecord *mechanism) {
+  gid_t gid = -2;
+  const AuthorizationValue *value;
+  AuthorizationContextFlags flags;
+  if (mechanism->pluginRecord->callbacks->GetContextValue(mechanism->engineRef,
+                                                          kAuthorizationEnvironmentGID,
+                                                          &flags,
+                                                          &value) == errAuthorizationSuccess) {
+    if ((value->length == sizeof(gid_t)) && (value->data != NULL)) {
+      gid = *(const gid_t *)value->data;
+    }
+  }
+  return gid;
+}
+
 #pragma mark Mechanism Functions
 
 OSStatus MechanismCreate(
@@ -61,22 +91,22 @@ OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
   @autoreleasepool {
     NSString *username = GetStringFromContext(mechanism, kAuthorizationEnvironmentUsername);
     NSString *password = GetStringFromContext(mechanism, kAuthorizationEnvironmentPassword);
+    uid_t uid = GetUIDFromContex(mechanism);
+    gid_t gid = GetGIDFromContex(mechanism);
 
-    if (username && password && ![username hasPrefix:@"_"]) {
-      // Get the user's UID/GID from their username
-      struct passwd *pw = getpwnam([username UTF8String]);
-      uid_t uid = pw->pw_uid;
-      uid_t gid = pw->pw_gid;
-      endpwent();
-
-      // Switch EUID/EGID to the target user so SecKeychain* knows who to affect, validate
-      // the login keychain password, then switch back to the previous user.
+    // Make sure we have a valid username and password.
+    // Make sure this is not a hidden user.
+    if (username && password && !(uid < 501)) {
       BOOL passwordValid = YES;
-      if (setegid(gid) == 0 && seteuid(uid) == 0) {
+
+      // Switch the per thread EUID/EGID to the target user so SecKeychain* knows who to affect,
+      // validate the login keychain password, then switch back to the previous user.
+      // Using pthread as to not disrupt all of authorizationhost.
+      if (pthread_setugid_np(uid, gid) == 0) {
         SecKeychainSetUserInteractionAllowed(NO);
         passwordValid = ValidateLoginKeychainPassword(password);
-        (void)seteuid(getuid());  // purposefully ignore return values when
-        (void)setegid(getgid());  // resetting back the effective uid/gid.
+        // Revert back to the default ids
+        pthread_setugid_np(KAUTH_UID_NONE, KAUTH_GID_NONE);
       }
 
       // Remove the current user, so they aren't duplicated in a second if
