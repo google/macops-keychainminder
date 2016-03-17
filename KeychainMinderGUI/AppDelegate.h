@@ -15,5 +15,7 @@
 @import Cocoa;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+- (IBAction)passwordKnown:(id)sender;
+- (IBAction)passwordUnknown:(id)sender;
 @end
 
