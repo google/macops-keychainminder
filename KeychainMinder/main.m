@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 #import <Security/AuthorizationPlugin.h>
 
-#include <pwd.h>
+#include "KeychainMinderAgentProtocol.h"
 
 #pragma mark Utility Functions
 
@@ -26,6 +26,19 @@ NSString *GetStringFromContext(MechanismRecord *mechanism, AuthorizationString k
   AuthorizationContextFlags flags;
   OSStatus err = mechanism->pluginRecord->callbacks->GetContextValue(
       mechanism->engineRef, key, &flags, &value);
+  if (err == errSecSuccess && value->length > 0) {
+    NSString *s = [[NSString alloc] initWithBytes:value->data
+                                           length:value->length
+                                         encoding:NSUTF8StringEncoding];
+    return [s stringByReplacingOccurrencesOfString:@"\0" withString:@""];
+  }
+  return nil;
+}
+
+NSString *GetStringFromHint(MechanismRecord *mechanism, AuthorizationString key) {
+  const AuthorizationValue *value;
+  OSStatus err = mechanism->pluginRecord->callbacks->GetHintValue(mechanism->engineRef, key,
+                                                                  &value);
   if (err == errSecSuccess && value->length > 0) {
     NSString *s = [[NSString alloc] initWithBytes:value->data
                                            length:value->length
@@ -65,6 +78,11 @@ gid_t GetGIDFromContex(MechanismRecord *mechanism) {
   return gid;
 }
 
+OSStatus AllowLogin(MechanismRecord *mechanism) {
+  return mechanism->pluginRecord->callbacks->SetResult(mechanism->engineRef,
+                                                       kAuthorizationResultAllow);
+}
+
 #pragma mark Mechanism Functions
 
 OSStatus MechanismCreate(
@@ -89,40 +107,72 @@ OSStatus MechanismDestroy(AuthorizationMechanismRef inMechanism) {
 OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
   MechanismRecord *mechanism = (MechanismRecord *)inMechanism;
   @autoreleasepool {
-    NSString *username = GetStringFromContext(mechanism, kAuthorizationEnvironmentUsername);
-    NSString *password = GetStringFromContext(mechanism, kAuthorizationEnvironmentPassword);
     uid_t uid = GetUIDFromContex(mechanism);
     gid_t gid = GetGIDFromContex(mechanism);
 
-    // Make sure we have a valid username and password.
     // Make sure this is not a hidden user.
-    if (username && password && !(uid < 501)) {
-      BOOL passwordValid = YES;
-
-      // Switch the per thread EUID/EGID to the target user so SecKeychain* knows who to affect,
-      // validate the login keychain password, then switch back to the previous user.
-      // Using pthread as to not disrupt all of authorizationhost.
-      if (pthread_setugid_np(uid, gid) == 0) {
-        SecKeychainSetUserInteractionAllowed(NO);
-        passwordValid = ValidateLoginKeychainPassword(password);
-        // Revert back to the default ids
-        pthread_setugid_np(KAUTH_UID_NONE, KAUTH_GID_NONE);
-      }
-
-      // Remove the current user, so they aren't duplicated in a second if
-      // the password wasn't valid.
-      NSMutableArray *users = GetUsers();
-      [users removeObject:username];
-
-      if (!passwordValid) {
-        [users addObject:username];
-      }
-      SetUsers(users);
+    if (uid < 501) {
+      return AllowLogin(mechanism);
     }
+
+    NSString *username = GetStringFromContext(mechanism, kAuthorizationEnvironmentUsername);
+    NSString *password = GetStringFromContext(mechanism, kAuthorizationEnvironmentPassword);
+    NSString *sesOwner = GetStringFromHint(mechanism, kAuthorizationEnvironmentSuggestedUser);
+
+    // Make sure we have username and password data.
+    if (!username && !password) {
+      return AllowLogin(mechanism);
+    }
+
+    // Make sure the auth user is the sesion owner.
+    if (![username isEqualToString:sesOwner]) {
+      return AllowLogin(mechanism);
+    }
+
+    BOOL keychainPasswordValid = YES;
+
+    // Switch the per thread EUID/EGID to the target user so SecKeychain* knows who to affect,
+    // validate the login keychain password, then switch back to the previous user.
+    // Using pthread as to not disrupt all of authorizationhost.
+    if (pthread_setugid_np(uid, gid) == 0) {
+      SecKeychainSetUserInteractionAllowed(NO);
+      keychainPasswordValid = ValidateLoginKeychainPassword(password);
+      // Revert back to the default ids
+      pthread_setugid_np(KAUTH_UID_NONE, KAUTH_GID_NONE);
+    } else {
+      return AllowLogin(mechanism);
+    }
+
+    // Remove the current user, so they aren't duplicated in a second if
+    // the password wasn't valid.
+    NSMutableArray *users = GetUsers();
+    [users removeObject:username];
+
+    if (!keychainPasswordValid) {
+      NSData *passwordData = [NSKeyedArchiver archivedDataWithRootObject:password];
+
+      NSXPCConnection *connectionToService =
+      [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentMachServiceName
+                                               options:NSXPCConnectionPrivileged];
+      connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
+                                                   @protocol(KeychainMinderAgentProtocol)];
+      [connectionToService resume];
+
+      id remoteObject = [connectionToService
+                         remoteObjectProxyWithErrorHandler:^(NSError *error) {
+                           NSLog(@"%@", [error debugDescription]);
+                         }];
+      [remoteObject setPassword:passwordData withReply:^(BOOL reply) {
+        NSLog(@"KeychainMinderAgent %@", reply ? @"Sucess" : @"Fail");
+      }];
+
+      [users addObject:username];
+    }
+
+    SetUsers(users);
   }
 
-  return mechanism->pluginRecord->callbacks->SetResult(mechanism->engineRef,
-                                                       kAuthorizationResultAllow);
+  return AllowLogin(mechanism);
 }
 
 OSStatus MechanismDeactivate(AuthorizationMechanismRef inMechanism) {
