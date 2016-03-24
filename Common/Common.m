@@ -30,7 +30,7 @@ void SetUsers(NSMutableArray *usersArray) {
 
 BOOL ValidateLoginPassword(NSString *newPassword) {
   AuthorizationItem right;
-  right.name = "authenticate";
+  right.name = "system.login.screensaver";
   right.value = NULL;
   right.valueLength = 0;
   right.flags = 0;
@@ -51,7 +51,7 @@ BOOL ValidateLoginPassword(NSString *newPassword) {
   authEnv.count = 2;
   authEnv.items = authEnvItems;
 
-  AuthorizationFlags authFlags = (kAuthorizationFlagExtendRights);
+  AuthorizationFlags authFlags = (kAuthorizationFlagExtendRights | kAuthorizationFlagDestroyRights);
 
   // Create an authorization reference, retrieve rights and then release.
   // CopyRights is where the authorization actually takes place and the result lets us know
