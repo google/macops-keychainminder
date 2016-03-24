@@ -14,8 +14,17 @@
 
 #import <Security/AuthorizationPlugin.h>
 
-#pragma mark Data Types
+// Context & Hint Keys
+#define kAuthorizationEnvironmentAuthenticationAuthority \
+"dsAttrTypeStandard:AuthenticationAuthority"
+#define kAuthorizationEnvironmentUID "uid"
+#define kAuthorizationEnvironmentGID "gid"
+#define kAuthorizationEnvironmentTokenName "token-name"
+#define kAuthorizationEnvironmentAuthorizeRight "authorize-right"
+#define kAuthorizationEnvironmentSuggestedUser "suggested-user"
+#define kAuthorizationEnvironmentClientPath "client-path"
 
+// Plugin Data Types
 enum {
   kMechanismMagic = 'Mchn',
   kPluginMagic = 'PlgN',

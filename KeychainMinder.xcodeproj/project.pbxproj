@@ -26,6 +26,10 @@
 		0D80140E1B6C0074006B8540 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D80140D1B6C0074006B8540 /* PasswordViewController.m */; };
 		C7F073031C99BD9C0049A7C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F073021C99BD9C0049A7C7 /* main.m */; };
 		C7F0730B1C99BDC90049A7C7 /* KeychainMinderAgent in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */; };
+		C7F073171C99E1E60049A7C7 /* KeychainMinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F073161C99E1E60049A7C7 /* KeychainMinderTests.m */; };
+		C7F0731C1C99E22A0049A7C7 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0EA9E51B62DB0E0041A897 /* Common.m */; };
+		C7F0731D1C99E22E0049A7C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0EA9B41B62C0FC0041A897 /* main.m */; };
+		C7F073201C99E2790049A7C7 /* KMCallbackEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F0731F1C99E2790049A7C7 /* KMCallbackEngine.m */; };
 		FC039A183291F172F2435D05 /* libPods-KeychainMinderAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */; };
 /* End PBXBuildFile section */
 
@@ -113,17 +117,23 @@
 		C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KeychainMinderAgent; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F073021C99BD9C0049A7C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 		C7F073141C99E1E60049A7C7 /* KeychainMinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeychainMinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F073161C99E1E60049A7C7 /* KeychainMinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeychainMinderTests.m; sourceTree = "<group>"; };
 		C7F073181C99E1E60049A7C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7F0731E1C99E2790049A7C7 /* KMCallbackEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMCallbackEngine.h; sourceTree = "<group>"; };
 		C7F0731F1C99E2790049A7C7 /* KMCallbackEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMCallbackEngine.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		C7F073211C99EE6E0049A7C7 /* KeychainMinderAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainMinderAgent.h; sourceTree = "<group>"; };
 		C7F073221C99EE6E0049A7C7 /* KeychainMinderAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainMinderAgent.m; sourceTree = "<group>"; };
 		C7F073231C99EE6E0049A7C7 /* KeychainMinderAgentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainMinderAgentProtocol.h; sourceTree = "<group>"; };
 		E4298CAE2CC6A17E7F19DE52 /* Pods-KeychainMinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderTests/Pods-KeychainMinderTests.release.xcconfig"; sourceTree = "<group>"; };
 >>>>>>> c3f4702... Add Pods to the XCTest build
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 		FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,16 +161,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 		C7F073111C99E1E60049A7C7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				08C2C50823DDFC0EE292181C /* libPods-KeychainMinderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 >>>>>>> c3f4702... Add Pods to the XCTest build
+=======
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+>>>>>>> 26f5008... XCTests for plugin functions
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -171,6 +190,7 @@
 				0D0EA9AC1B62BFE20041A897 /* Plugin */,
 				0D0EA9C01B62D9AE0041A897 /* App */,
 				C7F073011C99BD9C0049A7C7 /* KeychainMinderAgent */,
+				C7F073151C99E1E60049A7C7 /* KeychainMinderTests */,
 				0D0EA9BA1B62C1380041A897 /* Frameworks */,
 				0D0EA9AB1B62BFE20041A897 /* Products */,
 				2BF00F6175E09DA1081D098E /* Pods */,
@@ -183,6 +203,7 @@
 				0D0EA9AA1B62BFE20041A897 /* KeychainMinder.bundle */,
 				0D0EA9BF1B62D9AE0041A897 /* KeychainMinderGUI.app */,
 				C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */,
+				C7F073141C99E1E60049A7C7 /* KeychainMinderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,6 +290,17 @@
 			path = KeychainMinderAgent;
 			sourceTree = "<group>";
 		};
+		C7F073151C99E1E60049A7C7 /* KeychainMinderTests */ = {
+			isa = PBXGroup;
+			children = (
+				C7F073181C99E1E60049A7C7 /* Info.plist */,
+				C7F073161C99E1E60049A7C7 /* KeychainMinderTests.m */,
+				C7F0731E1C99E2790049A7C7 /* KMCallbackEngine.h */,
+				C7F0731F1C99E2790049A7C7 /* KMCallbackEngine.m */,
+			);
+			path = KeychainMinderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -329,17 +361,26 @@
 			productType = "com.apple.product-type.tool";
 		};
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 		C7F073131C99E1E60049A7C7 /* KeychainMinderTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7F073191C99E1E60049A7C7 /* Build configuration list for PBXNativeTarget "KeychainMinderTests" */;
 			buildPhases = (
+<<<<<<< HEAD
 				19EDA2F9E32F2B056CE4D01E /* Check Pods Manifest.lock */,
 				C7F073101C99E1E60049A7C7 /* Sources */,
 				C7F073111C99E1E60049A7C7 /* Frameworks */,
 				C7F073121C99E1E60049A7C7 /* Resources */,
 				8095E8607DB02AC027A25302 /* Embed Pods Frameworks */,
 				4690EA8B63C7F7744AEE45C2 /* Copy Pods Resources */,
+=======
+				C7F073101C99E1E60049A7C7 /* Sources */,
+				C7F073111C99E1E60049A7C7 /* Frameworks */,
+				C7F073121C99E1E60049A7C7 /* Resources */,
+>>>>>>> 26f5008... XCTests for plugin functions
 			);
 			buildRules = (
 			);
@@ -350,7 +391,10 @@
 			productReference = C7F073141C99E1E60049A7C7 /* KeychainMinderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+<<<<<<< HEAD
 >>>>>>> c3f4702... Add Pods to the XCTest build
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -367,6 +411,9 @@
 						CreatedOnToolsVersion = 6.1.1;
 					};
 					C7F072FF1C99BD9C0049A7C7 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					C7F073131C99E1E60049A7C7 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
@@ -387,6 +434,7 @@
 				0D0EA9A91B62BFE20041A897 /* KeychainMinder */,
 				0D0EA9BE1B62D9AE0041A897 /* KeychainMinderGUI */,
 				C7F072FF1C99BD9C0049A7C7 /* KeychainMinderAgent */,
+				C7F073131C99E1E60049A7C7 /* KeychainMinderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -401,6 +449,13 @@
 				0D19C1521B6AB19E000D5475 /* Keychain_Locked.png in Resources */,
 				0D19C1601B6AB329000D5475 /* PasswordNotKnownView.xib in Resources */,
 				0D0EA9CC1B62D9AE0041A897 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F073121C99E1E60049A7C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +567,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7F073031C99BD9C0049A7C7 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7F073101C99E1E60049A7C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7F073201C99E2790049A7C7 /* KMCallbackEngine.m in Sources */,
+				C7F0731C1C99E22A0049A7C7 /* Common.m in Sources */,
+				C7F0731D1C99E22E0049A7C7 /* main.m in Sources */,
+				C7F073171C99E1E60049A7C7 /* KeychainMinderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,11 +766,18 @@
 			name = Release;
 		};
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		C7F0731A1C99E1E60049A7C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 68510EB81284A990A40FF2BB /* Pods-KeychainMinderTests.debug.xcconfig */;
 			buildSettings = {
+=======
+		C7F0731A1C99E1E60049A7C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+>>>>>>> 26f5008... XCTests for plugin functions
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -718,8 +791,13 @@
 		};
 		C7F0731B1C99E1E60049A7C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
 			baseConfigurationReference = E4298CAE2CC6A17E7F19DE52 /* Pods-KeychainMinderTests.release.xcconfig */;
 			buildSettings = {
+=======
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+>>>>>>> 26f5008... XCTests for plugin functions
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -731,7 +809,10 @@
 			};
 			name = Release;
 		};
+<<<<<<< HEAD
 >>>>>>> c3f4702... Add Pods to the XCTest build
+=======
+>>>>>>> 26f5008... XCTests for plugin functions
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -770,6 +851,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C7F073191C99E1E60049A7C7 /* Build configuration list for PBXNativeTarget "KeychainMinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7F0731A1C99E1E60049A7C7 /* Debug */,
+				C7F0731B1C99E1E60049A7C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
