@@ -62,6 +62,7 @@
   [CATransaction begin];
   [CATransaction setCompletionBlock:^{
     [textField setStringValue:@""];
+    [textField setEnabled:YES];
     [self endProcessing];
     [self.view.window makeFirstResponder:textField];
   }];
