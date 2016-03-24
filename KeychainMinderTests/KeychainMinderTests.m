@@ -35,9 +35,9 @@ OSStatus KMDidDeactivate(AuthorizationEngineRef inEngine) {
 }
 
 OSStatus KMGetContextValue(AuthorizationEngineRef inEngine,
-                            AuthorizationString inKey,
-                            AuthorizationContextFlags *outContextFlags,
-                            const AuthorizationValue **outValue) {
+                           AuthorizationString inKey,
+                           AuthorizationContextFlags *outContextFlags,
+                           const AuthorizationValue **outValue) {
   return [callbackEngine getContextValue:inEngine
                                   forKey:inKey
                                 outFlags:outContextFlags
@@ -45,8 +45,8 @@ OSStatus KMGetContextValue(AuthorizationEngineRef inEngine,
 }
 
 OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
-                         AuthorizationString inKey,
-                         const AuthorizationValue **outValue) {
+                        AuthorizationString inKey,
+                        const AuthorizationValue **outValue) {
   return [callbackEngine getHintValue:inEngine
                                forKey:inKey
                              outValue:outValue];
@@ -59,13 +59,13 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
 @implementation KeychainMinderTests
 
 - (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+  [super setUp];
+  // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+  // Put teardown code here. This method is called after the invocation of each test method in the class.
+  [super tearDown];
 }
 
 //
@@ -119,9 +119,9 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
 
 - (void)testRequirementsBytes {
   unsigned char xctestReqBytes[44] = {
-      0xFA, 0xDE, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x2C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-      0x06, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x10, 0x63, 0x6F, 0x6D, 0x2E, 0x61, 0x70,
-      0x70, 0x6C, 0x65, 0x2E, 0x78, 0x63, 0x74, 0x65, 0x73, 0x74, 0x00, 0x00, 0x00, 0x03
+    0xFA, 0xDE, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x2C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+    0x06, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x10, 0x63, 0x6F, 0x6D, 0x2E, 0x61, 0x70,
+    0x70, 0x6C, 0x65, 0x2E, 0x78, 0x63, 0x74, 0x65, 0x73, 0x74, 0x00, 0x00, 0x00, 0x03
   };
   NSData *xctestReqData = [[NSData alloc] initWithBytes:xctestReqBytes length:44];
   SecRequirementRef xctestRequirements = nil;
