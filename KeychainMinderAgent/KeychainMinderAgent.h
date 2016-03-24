@@ -12,8 +12,9 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
-#import <Foundation/Foundation.h>
 #import "KeychainMinderAgentProtocol.h"
+
+#import <Foundation/Foundation.h>
 
 @interface KeychainMinderAgent : NSObject <NSXPCListenerDelegate, KeychainMinderAgentProtocol>
 

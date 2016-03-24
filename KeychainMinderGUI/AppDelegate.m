@@ -43,17 +43,15 @@
   [self.window setMovable:NO];
   [self.window setCanBecomeVisibleWithoutLogin:YES];
   [self.window setCanHide:NO];
-
   self.connectionToService = [[NSXPCConnection alloc]
-                              initWithMachServiceName:kKeychainMinderAgentMachServiceName
-                              options:NSXPCConnectionPrivileged];
+                                  initWithMachServiceName:kKeychainMinderAgentServiceName
+                                                  options:NSXPCConnectionPrivileged];
   self.connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
-                                                    @protocol(KeychainMinderAgentProtocol)];
+                                                       @protocol(KeychainMinderAgentProtocol)];
   [self.connectionToService resume];
-  self.remoteObject = [self.connectionToService
-                       remoteObjectProxyWithErrorHandler:^(NSError *error) {
-                         NSLog(@"%@", [error description]);
-                       }];
+  self.remoteObject = [self.connectionToService remoteObjectProxyWithErrorHandler:^(NSError *err) {
+    NSLog(@"%@", [err description]);
+  }];
   [self.window makeFirstResponder:nil];
   [NSApp activateIgnoringOtherApps:YES];
 

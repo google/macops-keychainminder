@@ -12,6 +12,7 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
+#include "AuthorizationTypes.h"
 #include "Common.h"
 
 #import <Foundation/Foundation.h>
@@ -48,12 +49,12 @@ NSString *GetStringFromHint(MechanismRecord *mechanism, AuthorizationString key)
   return nil;
 }
 
-uid_t GetUIDFromContex(MechanismRecord *mechanism) {
+uid_t GetUIDFromContext(MechanismRecord *mechanism) {
   uid_t uid = -2;
   const AuthorizationValue *value;
   AuthorizationContextFlags flags;
   if (mechanism->pluginRecord->callbacks->GetContextValue(mechanism->engineRef,
-                                                          kAuthorizationEnvironmentUID,
+                                                          kKMAuthUID,
                                                           &flags,
                                                           &value) == errAuthorizationSuccess) {
     if ((value->length == sizeof(uid_t)) && (value->data != NULL)) {
@@ -63,12 +64,12 @@ uid_t GetUIDFromContex(MechanismRecord *mechanism) {
   return uid;
 }
 
-gid_t GetGIDFromContex(MechanismRecord *mechanism) {
+gid_t GetGIDFromContext(MechanismRecord *mechanism) {
   gid_t gid = -2;
   const AuthorizationValue *value;
   AuthorizationContextFlags flags;
   if (mechanism->pluginRecord->callbacks->GetContextValue(mechanism->engineRef,
-                                                          kAuthorizationEnvironmentGID,
+                                                          kKMAuthGID,
                                                           &flags,
                                                           &value) == errAuthorizationSuccess) {
     if ((value->length == sizeof(gid_t)) && (value->data != NULL)) {
@@ -107,8 +108,8 @@ OSStatus MechanismDestroy(AuthorizationMechanismRef inMechanism) {
 OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
   MechanismRecord *mechanism = (MechanismRecord *)inMechanism;
   @autoreleasepool {
-    uid_t uid = GetUIDFromContex(mechanism);
-    gid_t gid = GetGIDFromContex(mechanism);
+    uid_t uid = GetUIDFromContext(mechanism);
+    gid_t gid = GetGIDFromContext(mechanism);
 
     // Make sure this is not a hidden user.
     if (uid < 501) {
@@ -117,10 +118,10 @@ OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
 
     NSString *username = GetStringFromContext(mechanism, kAuthorizationEnvironmentUsername);
     NSString *password = GetStringFromContext(mechanism, kAuthorizationEnvironmentPassword);
-    NSString *sesOwner = GetStringFromHint(mechanism, kAuthorizationEnvironmentSuggestedUser);
+    NSString *sesOwner = GetStringFromHint(mechanism, kKMAuthSuggestedUser);
 
     // Make sure we have username and password data.
-    if (!username && !password) {
+    if (!username || !password) {
       return AllowLogin(mechanism);
     }
 
@@ -134,14 +135,14 @@ OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
     // Switch the per thread EUID/EGID to the target user so SecKeychain* knows who to affect,
     // validate the login keychain password, then switch back to the previous user.
     // Using pthread as to not disrupt all of authorizationhost.
-    if (pthread_setugid_np(uid, gid) == 0) {
-      SecKeychainSetUserInteractionAllowed(NO);
-      keychainPasswordValid = ValidateLoginKeychainPassword(password);
-      // Revert back to the default ids
-      pthread_setugid_np(KAUTH_UID_NONE, KAUTH_GID_NONE);
-    } else {
+    if (pthread_setugid_np(uid, gid) != 0) {
       return AllowLogin(mechanism);
     }
+
+    SecKeychainSetUserInteractionAllowed(NO);
+    keychainPasswordValid = ValidateLoginKeychainPassword(password);
+    // Revert back to the default ids
+    pthread_setugid_np(KAUTH_UID_NONE, KAUTH_GID_NONE);
 
     // Remove the current user, so they aren't duplicated in a second if
     // the password wasn't valid.
@@ -152,16 +153,16 @@ OSStatus MechanismInvoke(AuthorizationMechanismRef inMechanism) {
       NSData *passwordData = [NSKeyedArchiver archivedDataWithRootObject:password];
 
       NSXPCConnection *connectionToService =
-      [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentMachServiceName
-                                               options:NSXPCConnectionPrivileged];
+          [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentServiceName
+                                                   options:NSXPCConnectionPrivileged];
       connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
-                                                   @protocol(KeychainMinderAgentProtocol)];
+                                                       @protocol(KeychainMinderAgentProtocol)];
       [connectionToService resume];
 
-      id remoteObject = [connectionToService
-                         remoteObjectProxyWithErrorHandler:^(NSError *error) {
-                           NSLog(@"%@", [error debugDescription]);
-                         }];
+      id remoteObject = [connectionToService remoteObjectProxyWithErrorHandler:^(NSError *error) {
+        NSLog(@"%@", [error debugDescription]);
+      }];
+
       [remoteObject setPassword:passwordData withReply:^(BOOL reply) {
         NSLog(@"KeychainMinderAgent %@", reply ? @"Sucess" : @"Fail");
       }];

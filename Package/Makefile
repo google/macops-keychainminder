@@ -17,8 +17,8 @@ PAYLOAD:=pack-SecurityAgentPlugin-KeychainMinder.bundle \
 				 pack-script-postinstall
 
 KeychainMinder.bundle:
-	@cd .. && xcodebuild -workspace KeychainMinder.xcworkspace -scheme KeychainMinder -configuration Archive OBJROOT=$(PWD)/../build SYMROOT=$(PWD)/../build DSTROOT=$(PWD)/../build
-	@cp -R ../build/Release/KeychainMinder.bundle .
+	@cd .. && xcodebuild -workspace KeychainMinder.xcworkspace -scheme KeychainMinder -configuration Archive -derivedDataPath build
+	@cp -R ../build/Build/Products/Release/KeychainMinder.bundle .
 
 l_Library_Security: l_Library
 	@sudo mkdir -p ${WORK_D}/Library/Security

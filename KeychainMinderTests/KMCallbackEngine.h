@@ -13,7 +13,7 @@
 ///    limitations under the License.
 
 #import <Foundation/Foundation.h>
-#import "Common.h"
+#import "AuthorizationTypes.h"
 
 @interface KMCallbackEngine : NSObject
 

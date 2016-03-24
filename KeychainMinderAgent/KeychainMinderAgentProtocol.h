@@ -13,7 +13,8 @@
 ///    limitations under the License.
 
 #import <Foundation/Foundation.h>
-#define kKeychainMinderAgentMachServiceName @"com.google.corp.KeychainMinderAgent"
+
+static NSString *const kKeychainMinderAgentServiceName = @"com.google.corp.KeychainMinderAgent";
 
 @protocol KeychainMinderAgentProtocol
 

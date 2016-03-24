@@ -38,25 +38,19 @@
     const AuthorizationValue value = { (UInt32)[_context[key] length],
       (void *)[_context[key] UTF8String] };
     (*outValue) = &value;
-  }
-
-  else if ([key isEqualToString:@kAuthorizationEnvironmentAuthenticationAuthority]) {
+  } else if ([key isEqualToString:@kKMAuthAuthenticationAuthority]) {
     NSData *data = [NSPropertyListSerialization dataWithPropertyList:(NSDictionary *)_context[key]
                                                               format:NSPropertyListXMLFormat_v1_0
                                                              options:0
                                                                error:nil];
     const AuthorizationValue value = { (UInt32)[data length], (void *)[data bytes] };
     (*outValue) = &value;
-  }
-
-  else if ([key isEqualToString:@kAuthorizationEnvironmentUID] ||
-           [key isEqualToString:@kAuthorizationEnvironmentGID]) {
+  } else if ([key isEqualToString:@kKMAuthUID] ||
+             [key isEqualToString:@kKMAuthGID]) {
     const AuthorizationValue value = { (UInt32)[_context[key] length],
       (void *)[_context[key] bytes] };
     (*outValue) = &value;
-  }
-
-  else {
+  } else {
     const AuthorizationValue value = { (UInt32)0, NULL };
     (*outValue) = &value;
   }
@@ -73,9 +67,7 @@
     const AuthorizationValue value = { (UInt32)[_hint[key] length],
       (void *)[_hint[key] UTF8String] };
     (*outValue) = &value;
-  }
-
-  else {
+  } else {
     const AuthorizationValue value = { (UInt32)0, NULL };
     (*outValue) = &value;
   }
@@ -92,33 +84,33 @@
 }
 
 - (void)setAuthenticationAuthority:(NSDictionary *)authenticationAuthority {
-  _context[@kAuthorizationEnvironmentAuthenticationAuthority] = authenticationAuthority;
+  _context[@kKMAuthAuthenticationAuthority] = authenticationAuthority;
 }
 
 - (void)setUid:(uid_t)uid {
   NSData *data = [NSData dataWithBytes:&uid length:sizeof(uid_t)];
-  _context[@kAuthorizationEnvironmentUID] = data;
+  _context[@kKMAuthUID] = data;
 }
 
 - (void)setGid:(gid_t)gid {
   NSData *data = [NSData dataWithBytes:&gid length:sizeof(gid_t)];
-  _context[@kAuthorizationEnvironmentGID] = data;
+  _context[@kKMAuthGID] = data;
 }
 
 - (void)setTokenName:(NSString *)tokenName {
-  _hint[@kAuthorizationEnvironmentTokenName] = tokenName;
+  _hint[@kKMAuthTokenName] = tokenName;
 }
 
 - (void)setAuthorizeRight:(NSString *)authorizeRight {
-  _hint[@kAuthorizationEnvironmentAuthorizeRight] = authorizeRight;
+  _hint[@kKMAuthAuthorizeRight] = authorizeRight;
 }
 
 - (void)setSuggestedUser:(NSString *)suggestedUser {
-  _hint[@kAuthorizationEnvironmentSuggestedUser] = suggestedUser;
+  _hint[@kKMAuthSuggestedUser] = suggestedUser;
 }
 
 - (void)setClientPath:(NSString *)clientPath {
-  _hint[@kAuthorizationEnvironmentClientPath] = clientPath;
+  _hint[@kKMAuthClientPath] = clientPath;
 }
 
 @end

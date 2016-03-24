@@ -17,11 +17,8 @@
 
 int main(int argc, const char * argv[]) {
   @autoreleasepool {
-    KeychainMinderAgent *keychainMinderAgent;
-    if (!keychainMinderAgent) {
-      keychainMinderAgent = [[KeychainMinderAgent alloc] init];
-    }
+    KeychainMinderAgent *keychainMinderAgent = [[KeychainMinderAgent alloc] init];
     [keychainMinderAgent run];
   }
-    return 0;
+  return 0;
 }

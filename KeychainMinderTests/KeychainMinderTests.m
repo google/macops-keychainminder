@@ -18,7 +18,7 @@
 #import <MOLCodesignChecker/MOLCodesignChecker.h>
 
 #import "KMCallbackEngine.h"
-#import "Common.h"
+#import "AuthorizationTypes.h"
 #import "KeychainMinderAgentProtocol.h"
 
 AuthorizationResult GlobalResult;
@@ -57,16 +57,6 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
 @end
 
 @implementation KeychainMinderTests
-
-- (void)setUp {
-  [super setUp];
-  // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-  // Put teardown code here. This method is called after the invocation of each test method in the class.
-  [super tearDown];
-}
 
 //
 // Basic test to run through the plugin's funtions to ensure AuthorizationSuccess.
@@ -151,28 +141,26 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
   XCTAssertTrue([selfCS validateWithRequirement:xctestRequirements]);
 }
 
-//
+
 // Used to debug the XPC Connection. In KeychainMinderAgent.m be sure to change the requirement
 // string to com.apple.xctest.
-//
-//- (void)testXPCConnection {
-//  NSXPCConnection *connectionToService =
-//  [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentMachServiceName
-//                                           options:NSXPCConnectionPrivileged];
-//  connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
-//                                               @protocol(KeychainMinderAgentProtocol)];
-//  [connectionToService resume];
-//
-//  id remoteObject = [connectionToService
-//                     remoteObjectProxyWithErrorHandler:^(NSError *error) {
-//                       NSLog(@"%@", [error debugDescription]);
-//                     }];
-//  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:@"TOMTOM"];
-//  [remoteObject setPassword:data withReply:^(BOOL reply) {
-//    NSLog(@"setPassword [%hhd]", reply);
-//  }];
-//
-//  sleep(100000);
-//}
+- (void)testXPCConnection {
+  NSData *passwordData = [NSKeyedArchiver archivedDataWithRootObject:@"TOMTOM"];
+
+  NSXPCConnection *connectionToService =
+  [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentServiceName
+                                           options:NSXPCConnectionPrivileged];
+  connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
+                                               @protocol(KeychainMinderAgentProtocol)];
+  [connectionToService resume];
+
+  id remoteObject = [connectionToService remoteObjectProxyWithErrorHandler:^(NSError *error) {
+    NSLog(@"%@", [error debugDescription]);
+  }];
+
+  [remoteObject setPassword:passwordData withReply:^(BOOL reply) {
+    XCTAssertTrue(reply);
+  }];
+}
 
 @end

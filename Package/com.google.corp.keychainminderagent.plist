@@ -12,8 +12,6 @@
 	<dict>
 		<key>com.google.corp.KeychainMinderAgent</key>
 		<true/>
-		<key>KeychainMinderAgent</key>
-		<true/>
 	</dict>
 	<key>ProcessType</key>
 	<string>Interactive</string>

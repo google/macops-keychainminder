@@ -124,6 +124,7 @@
 		C739E51E1CA46BDB00A863A3 /* KeychainMinderAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainMinderAgent.h; sourceTree = "<group>"; };
 		C739E51F1CA46BDB00A863A3 /* KeychainMinderAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainMinderAgent.m; sourceTree = "<group>"; };
 		C739E5201CA46BDB00A863A3 /* KeychainMinderAgentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainMinderAgentProtocol.h; sourceTree = "<group>"; };
+		C7DD3AEF1CA48D1D00C09E1E /* AuthorizationTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorizationTypes.h; sourceTree = "<group>"; };
 		C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KeychainMinderAgent; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F073021C99BD9C0049A7C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderAgent.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		0D0EA9E81B62DCFB0041A897 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C7DD3AEF1CA48D1D00C09E1E /* AuthorizationTypes.h */,
 				0D0EA9E41B62DB0E0041A897 /* Common.h */,
 				0D0EA9E51B62DB0E0041A897 /* Common.m */,
 			);

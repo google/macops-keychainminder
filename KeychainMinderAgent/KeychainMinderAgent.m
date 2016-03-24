@@ -13,6 +13,7 @@
 ///    limitations under the License.
 
 #import "KeychainMinderAgent.h"
+
 #import <MOLCertificate/MOLCertificate.h>
 #import <MOLCodesignChecker/MOLCodesignChecker.h>
 
@@ -27,16 +28,15 @@
 
 - (id)init {
   self = [super init];
-  if (self != nil) {
+  if (self) {
     // Set up our XPC listener to handle requests on our Mach service.
-    _listener = [[NSXPCListener alloc] initWithMachServiceName:kKeychainMinderAgentMachServiceName];
+    _listener = [[NSXPCListener alloc] initWithMachServiceName:kKeychainMinderAgentServiceName];
     _listener.delegate = self;
   }
   return self;
 }
 
-- (void)run
-{
+- (void)run {
   // Tell the XPC listener to start processing requests.
   [self.listener resume];
   
@@ -52,14 +52,14 @@
   
   // Add an exemption for authorizationhost.bundle connections. This is needed so the authorization
   // plugin use this XPC service.
-  // For testing
-  // NSString *const ahReqString = @"identifier \"com.apple.xctest\" and anchor apple";
-  NSString *const ahReqString = @"identifier \"com.apple.authorizationhost\" and anchor apple";
-  SecRequirementRef ahRequirements = nil;
+  NSString *const ahReqString = [self beingUnitTested] ?
+      @"identifier \"com.apple.xctest\" and anchor apple" :
+      @"identifier \"com.apple.authorizationhost\" and anchor apple";
+  SecRequirementRef ahRequirements = NULL;
   SecRequirementCreateWithString((__bridge CFStringRef _Nonnull)ahReqString,
                                  kSecCSDefaultFlags, &ahRequirements);
 
-   // Only allow connections that are signed with the same CS or come from Apple's authorizationhost
+   // Only allow connections that are signed with the same CS or match the SecRequirementRef
   if ([remoteCS signingInformationMatches:selfCS] ||
       [remoteCS validateWithRequirement:ahRequirements]) {
     newConn.exportedInterface = [NSXPCInterface interfaceWithProtocol:
@@ -82,6 +82,20 @@
   // The connection has completed it's task of handing off the login password to
   // the KeychainMinderGUI. Kill the agent.
   exit(0);
+}
+
+- (BOOL)beingUnitTested {
+  BOOL answer = NO;
+  Class testProbeClass = NSClassFromString(@"XCTestProbe");
+  if (testProbeClass != Nil) {
+    SEL selector = NSSelectorFromString(@"isTesting");
+    NSMethodSignature *sig = [testProbeClass methodSignatureForSelector:selector];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setSelector:selector];
+    [invocation invokeWithTarget:testProbeClass];
+    [invocation getReturnValue:&answer];
+  }
+  return answer;
 }
 
 @end

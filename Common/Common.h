@@ -12,37 +12,7 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
-#import <Security/AuthorizationPlugin.h>
-
-// Context & Hint Keys
-#define kAuthorizationEnvironmentAuthenticationAuthority \
-"dsAttrTypeStandard:AuthenticationAuthority"
-#define kAuthorizationEnvironmentUID "uid"
-#define kAuthorizationEnvironmentGID "gid"
-#define kAuthorizationEnvironmentTokenName "token-name"
-#define kAuthorizationEnvironmentAuthorizeRight "authorize-right"
-#define kAuthorizationEnvironmentSuggestedUser "suggested-user"
-#define kAuthorizationEnvironmentClientPath "client-path"
-
-// Plugin Data Types
-enum {
-  kMechanismMagic = 'Mchn',
-  kPluginMagic = 'PlgN',
-};
-
-typedef struct {
-  OSType magic;
-  const AuthorizationCallbacks *callbacks;
-} PluginRecord;
-
-typedef struct {
-  OSType magic;
-  AuthorizationEngineRef engineRef;
-  const PluginRecord *pluginRecord;
-} MechanismRecord;
-
-@import Foundation;
-@import OpenDirectory;
+#import <Foundation/Foundation.h>
 
 ///
 ///  Retrieves a mutable array from the plist on disk.
