@@ -13,15 +13,12 @@
 ///    limitations under the License.
 
 #import <Foundation/Foundation.h>
-#import "KeychainMinderAgent.h"
+#define kKeychainMinderAgentMachServiceName @"com.google.corp.KeychainMinderAgent"
 
-int main(int argc, const char * argv[]) {
-  @autoreleasepool {
-    KeychainMinderAgent *keychainMinderAgent;
-    if (!keychainMinderAgent) {
-      keychainMinderAgent = [[KeychainMinderAgent alloc] init];
-    }
-    [keychainMinderAgent run];
-  }
-    return 0;
-}
+@protocol KeychainMinderAgentProtocol
+
+- (void)getPasswordWithReply:(void (^)(NSData *))reply;
+- (void)setPassword:(NSData *)inPassword withReply:(void (^)(BOOL))reply;
+
+@end
+

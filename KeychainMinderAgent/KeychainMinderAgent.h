@@ -13,15 +13,12 @@
 ///    limitations under the License.
 
 #import <Foundation/Foundation.h>
-#import "KeychainMinderAgent.h"
+#import "KeychainMinderAgentProtocol.h"
 
-int main(int argc, const char * argv[]) {
-  @autoreleasepool {
-    KeychainMinderAgent *keychainMinderAgent;
-    if (!keychainMinderAgent) {
-      keychainMinderAgent = [[KeychainMinderAgent alloc] init];
-    }
-    [keychainMinderAgent run];
-  }
-    return 0;
-}
+@interface KeychainMinderAgent : NSObject <NSXPCListenerDelegate, KeychainMinderAgentProtocol>
+
+- (void)setPassword:(NSData *)inPassword withReply:(void (^)(BOOL))reply;
+- (void)getPasswordWithReply:(void (^)(NSData *))reply;
+- (void)run;
+
+@end
