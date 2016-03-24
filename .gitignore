@@ -2,6 +2,8 @@
 Build
 build
 Pods
+*.pkg
+*KeychainMinder.bundle
 *.xcodeproj/xcuserdata
 *.xcodeproj/project.xcworkspace
 *.xcworkspace/xcuserdata
