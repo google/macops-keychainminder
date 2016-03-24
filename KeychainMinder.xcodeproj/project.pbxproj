@@ -23,11 +23,14 @@
 		0D19C15F1B6AB329000D5475 /* PasswordNotKnownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D19C15D1B6AB329000D5475 /* PasswordNotKnownView.m */; };
 		0D19C1601B6AB329000D5475 /* PasswordNotKnownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D19C15E1B6AB329000D5475 /* PasswordNotKnownView.xib */; };
 		0D80140E1B6C0074006B8540 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D80140D1B6C0074006B8540 /* PasswordViewController.m */; };
+		30A9218BE1284B4B9F719DA2 /* libPods-KeychainMinderTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC95AD9E98FD902BBC1D3EA /* libPods-KeychainMinderTests.a */; };
 		C739E5161CA46B9200A863A3 /* KeychainMinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C739E5151CA46B9200A863A3 /* KeychainMinderTests.m */; };
 		C739E51D1CA46BAA00A863A3 /* KMCallbackEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C739E51C1CA46BAA00A863A3 /* KMCallbackEngine.m */; };
 		C739E5211CA46BDB00A863A3 /* KeychainMinderAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = C739E51F1CA46BDB00A863A3 /* KeychainMinderAgent.m */; };
+		C79331A31CA46CE200392B52 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0EA9E51B62DB0E0041A897 /* Common.m */; };
+		C79331A41CA46CE700392B52 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0EA9B41B62C0FC0041A897 /* main.m */; };
 		C7F073031C99BD9C0049A7C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F073021C99BD9C0049A7C7 /* main.m */; };
-		C7F0730B1C99BDC90049A7C7 /* KeychainMinderAgent in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */; };
+		C7F0730B1C99BDC90049A7C7 /* KeychainMinderAgent in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7F073001C99BD9C0049A7C7 /* KeychainMinderAgent */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FC039A183291F172F2435D05 /* libPods-KeychainMinderAgent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +111,9 @@
 		0D19C15E1B6AB329000D5475 /* PasswordNotKnownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordNotKnownView.xib; sourceTree = "<group>"; };
 		0D80140C1B6C0074006B8540 /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		0D80140D1B6C0074006B8540 /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		11F3EEBEBC8A87689D4180F9 /* Pods-KeychainMinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderTests/Pods-KeychainMinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		6E66D2C8B758DD6C070BA4D5 /* Pods-KeychainMinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderTests/Pods-KeychainMinderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9AC95AD9E98FD902BBC1D3EA /* libPods-KeychainMinderTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KeychainMinderTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KeychainMinderAgent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A7BB8BD2328D9F3836BCEA /* Pods-KeychainMinderAgent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeychainMinderAgent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent.debug.xcconfig"; sourceTree = "<group>"; };
 		C739E5131CA46B9200A863A3 /* KeychainMinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeychainMinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30A9218BE1284B4B9F719DA2 /* libPods-KeychainMinderTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +206,7 @@
 				0D0EA9B81B62C12E0041A897 /* Security.framework */,
 				0D0EA9B61B62C12B0041A897 /* Foundation.framework */,
 				A6B3A3E2BC165ADE364C5F25 /* libPods-KeychainMinderAgent.a */,
+				9AC95AD9E98FD902BBC1D3EA /* libPods-KeychainMinderTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -248,6 +256,8 @@
 			children = (
 				A9A7BB8BD2328D9F3836BCEA /* Pods-KeychainMinderAgent.debug.xcconfig */,
 				FBD3F60D5C773D146528EFF2 /* Pods-KeychainMinderAgent.release.xcconfig */,
+				6E66D2C8B758DD6C070BA4D5 /* Pods-KeychainMinderTests.debug.xcconfig */,
+				11F3EEBEBC8A87689D4180F9 /* Pods-KeychainMinderTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -318,9 +328,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C739E51A1CA46B9200A863A3 /* Build configuration list for PBXNativeTarget "KeychainMinderTests" */;
 			buildPhases = (
+				D35A9EE82A9F05C5D1A9FE4E /* Check Pods Manifest.lock */,
 				C739E50F1CA46B9200A863A3 /* Sources */,
 				C739E5101CA46B9200A863A3 /* Frameworks */,
 				C739E5111CA46B9200A863A3 /* Resources */,
+				16B2BAD01E1C1A00D367EB72 /* Embed Pods Frameworks */,
+				FD038DFFBA69A092925DA1CB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -356,7 +369,7 @@
 		0D0EA9A21B62BFE20041A897 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Google Inc";
 				TargetAttributes = {
 					0D0EA9A91B62BFE20041A897 = {
@@ -432,6 +445,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeychainMinderAgent/Pods-KeychainMinderAgent-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		16B2BAD01E1C1A00D367EB72 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeychainMinderTests/Pods-KeychainMinderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		42D82900ED8F54B11848C462 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,6 +473,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D35A9EE82A9F05C5D1A9FE4E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FD038DFFBA69A092925DA1CB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeychainMinderTests/Pods-KeychainMinderTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -476,7 +534,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79331A31CA46CE200392B52 /* Common.m in Sources */,
 				C739E51D1CA46BAA00A863A3 /* KMCallbackEngine.m in Sources */,
+				C79331A41CA46CE700392B52 /* main.m in Sources */,
 				C739E5161CA46B9200A863A3 /* KeychainMinderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +710,7 @@
 		};
 		C739E5181CA46B9200A863A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E66D2C8B758DD6C070BA4D5 /* Pods-KeychainMinderTests.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -664,6 +725,7 @@
 		};
 		C739E5191CA46B9200A863A3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11F3EEBEBC8A87689D4180F9 /* Pods-KeychainMinderTests.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -735,6 +797,7 @@
 				C739E5191CA46B9200A863A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C7F073061C99BD9C0049A7C7 /* Build configuration list for PBXNativeTarget "KeychainMinderAgent" */ = {
 			isa = XCConfigurationList;
