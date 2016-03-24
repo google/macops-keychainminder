@@ -1,14 +1,25 @@
-//
-//  KeychainMinderTests.m
-//  KeychainMinderTests
-//
-//  Created by bur on 3/16/16.
-//  Copyright © 2016 Google Inc. All rights reserved.
-//
+/// Copyright 2015 Google Inc. All rights reserved.
+///
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+///
+///    http://www.apache.org/licenses/LICENSE-2.0
+///
+///    Unless required by applicable law or agreed to in writing, software
+///    distributed under the License is distributed on an "AS IS" BASIS,
+///    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+///    See the License for the specific language governing permissions and
+///    limitations under the License.
 
 #import <XCTest/XCTest.h>
+
+#import <MOLCertificate/MOLCertificate.h>
+#import <MOLCodesignChecker/MOLCodesignChecker.h>
+
 #import "KMCallbackEngine.h"
 #import "Common.h"
+#import "KeychainMinderAgentProtocol.h"
 
 AuthorizationResult GlobalResult;
 
@@ -57,14 +68,16 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
     [super tearDown];
 }
 
+//
 // Basic test to run through the plugin's funtions to ensure AuthorizationSuccess.
+//
 - (void)testKMPluginCoreAuthorizationSuccess {
   callbackEngine = [[KMCallbackEngine alloc] init];
   [callbackEngine setUsername:@"bur"];
   [callbackEngine setPassword:@"tomtom"];
   [callbackEngine setUid:501];
   [callbackEngine setGid:20];
-  [callbackEngine setAuthorizeRight:@"system.login.console"];
+  [callbackEngine setAuthorizeRight:@"authenticate"];
   [callbackEngine setClientPath:@"/System/Library/CoreServices/loginwindow.app"];
   [callbackEngine setSuggestedUser:@"bur"];
 
@@ -84,7 +97,7 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
   XCTAssertTrue(pluginRecord->callbacks != NULL);
   XCTAssertTrue(pluginRecord->callbacks->version >= kAuthorizationCallbacksVersion);
 
-  NSArray *mechIDs = @[ @"run" ];
+  NSArray *mechIDs = @[ @"check" ];
 
   for (NSString *mechID in mechIDs) {
     GlobalResult = -1;
@@ -103,5 +116,63 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
   pluginInterface->PluginDestroy(plugin);
   free(callbacks);
 }
+
+- (void)testRequirementsBytes {
+  unsigned char xctestReqBytes[44] = {
+      0xFA, 0xDE, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x2C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+      0x06, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x10, 0x63, 0x6F, 0x6D, 0x2E, 0x61, 0x70,
+      0x70, 0x6C, 0x65, 0x2E, 0x78, 0x63, 0x74, 0x65, 0x73, 0x74, 0x00, 0x00, 0x00, 0x03
+  };
+  NSData *xctestReqData = [[NSData alloc] initWithBytes:xctestReqBytes length:44];
+  SecRequirementRef xctestRequirements = nil;
+  SecRequirementCreateWithData((__bridge CFDataRef)xctestReqData,
+                               kSecCSDefaultFlags, &xctestRequirements);
+  MOLCodesignChecker *selfCS = [[MOLCodesignChecker alloc] initWithSelf];
+  XCTAssertTrue([selfCS validateWithRequirement:xctestRequirements]);
+
+}
+
+- (void)testRequirementsBase64 {
+  NSString *xctestReqBase64 = @"+t4MAAAAACwAAAABAAAABgAAAAIAAAAQY29tLmFwcGxlLnhjdGVzdAAAAAM=";
+  NSData *xctestReqData = [[NSData alloc] initWithBase64EncodedString:xctestReqBase64 options:0];
+  SecRequirementRef xctestRequirements = nil;
+  SecRequirementCreateWithData((__bridge CFDataRef)xctestReqData,
+                               kSecCSDefaultFlags, &xctestRequirements);
+  MOLCodesignChecker *selfCS = [[MOLCodesignChecker alloc] initWithSelf];
+  XCTAssertTrue([selfCS validateWithRequirement:xctestRequirements]);
+}
+
+- (void)testRequirementsString {
+  NSString *xctestReqString = @"identifier \"com.apple.xctest\" and anchor apple";
+  SecRequirementRef xctestRequirements = nil;
+  SecRequirementCreateWithString((__bridge CFStringRef _Nonnull)xctestReqString,
+                                 kSecCSDefaultFlags, &xctestRequirements);
+  MOLCodesignChecker *selfCS = [[MOLCodesignChecker alloc] initWithSelf];
+  XCTAssertTrue([selfCS validateWithRequirement:xctestRequirements]);
+}
+
+//
+// Used to debug the XPC Connection. In KeychainMinderAgent.m be sure to change the requirement
+// string to com.apple.xctest.
+//
+//- (void)testXPCConnection {
+//  NSXPCConnection *connectionToService =
+//  [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentMachServiceName
+//                                           options:NSXPCConnectionPrivileged];
+//  connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
+//                                               @protocol(KeychainMinderAgentProtocol)];
+//  [connectionToService resume];
+//
+//  id remoteObject = [connectionToService
+//                     remoteObjectProxyWithErrorHandler:^(NSError *error) {
+//                       NSLog(@"%@", [error debugDescription]);
+//                     }];
+//  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:@"TOMTOM"];
+//  [remoteObject setPassword:data withReply:^(BOOL reply) {
+//    NSLog(@"setPassword [%hhd]", reply);
+//  }];
+//
+//  sleep(100000);
+//}
 
 @end
