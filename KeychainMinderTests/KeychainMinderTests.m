@@ -142,25 +142,30 @@ OSStatus KMGetHintValue(AuthorizationEngineRef inEngine,
 }
 
 
-// Used to debug the XPC Connection. In KeychainMinderAgent.m be sure to change the requirement
-// string to com.apple.xctest.
-- (void)testXPCConnection {
-  NSData *passwordData = [NSKeyedArchiver archivedDataWithRootObject:@"TOMTOM"];
-
-  NSXPCConnection *connectionToService =
-  [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentServiceName
-                                           options:NSXPCConnectionPrivileged];
-  connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
-                                               @protocol(KeychainMinderAgentProtocol)];
-  [connectionToService resume];
-
-  id remoteObject = [connectionToService remoteObjectProxyWithErrorHandler:^(NSError *error) {
-    NSLog(@"%@", [error debugDescription]);
-  }];
-
-  [remoteObject setPassword:passwordData withReply:^(BOOL reply) {
-    XCTAssertTrue(reply);
-  }];
-}
+// This is not a test. It can be used to debug the XPC Connection.
+// To debug with XCTests you will need to edit the ahReqString in KeychainMinderAgent.m
+// Set the identifier to: @"\"com.apple.xctest\" and anchor apple"
+//- (void)testXPCConnection {
+//  NSData *passwordData = [NSKeyedArchiver archivedDataWithRootObject:@"TOMTOM"];
+//
+//  NSXPCConnection *connectionToService =
+//      [[NSXPCConnection alloc] initWithMachServiceName:kKeychainMinderAgentServiceName
+//                                               options:NSXPCConnectionPrivileged];
+//  connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
+//                                                   @protocol(KeychainMinderAgentProtocol)];
+//  [connectionToService resume];
+//
+//  id remoteObject = [connectionToService remoteObjectProxyWithErrorHandler:^(NSError *error) {
+//    NSLog(@"%@", [error debugDescription]);
+//  }];
+//
+//  [remoteObject setPassword:passwordData withReply:^(BOOL reply) {
+//    NSLog(@"%hhd", reply);
+//  }];
+//
+//  [remoteObject getPasswordWithReply:^(NSData *data) {
+//    NSLog(@"%@", data);
+//  }];
+//}
 
 @end

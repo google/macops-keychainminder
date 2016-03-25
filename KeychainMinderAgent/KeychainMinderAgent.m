@@ -49,12 +49,10 @@
   
   MOLCodesignChecker *selfCS = [[MOLCodesignChecker alloc] initWithSelf];
   MOLCodesignChecker *remoteCS = [[MOLCodesignChecker alloc] initWithPID:pid];
-  
+
   // Add an exemption for authorizationhost.bundle connections. This is needed so the authorization
   // plugin use this XPC service.
-  NSString *const ahReqString = [self beingUnitTested] ?
-      @"identifier \"com.apple.xctest\" and anchor apple" :
-      @"identifier \"com.apple.authorizationhost\" and anchor apple";
+  NSString *const ahReqString = @"identifier \"com.apple.authorizationhost\" and anchor apple";
   SecRequirementRef ahRequirements = NULL;
   SecRequirementCreateWithString((__bridge CFStringRef _Nonnull)ahReqString,
                                  kSecCSDefaultFlags, &ahRequirements);
@@ -82,20 +80,6 @@
   // The connection has completed it's task of handing off the login password to
   // the KeychainMinderGUI. Kill the agent.
   exit(0);
-}
-
-- (BOOL)beingUnitTested {
-  BOOL answer = NO;
-  Class testProbeClass = NSClassFromString(@"XCTestProbe");
-  if (testProbeClass != Nil) {
-    SEL selector = NSSelectorFromString(@"isTesting");
-    NSMethodSignature *sig = [testProbeClass methodSignatureForSelector:selector];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setSelector:selector];
-    [invocation invokeWithTarget:testProbeClass];
-    [invocation getReturnValue:&answer];
-  }
-  return answer;
 }
 
 @end
