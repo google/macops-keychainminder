@@ -12,8 +12,14 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
-#import "PasswordViewController.h"
+#import "KeychainMinderAgentProtocol.h"
 
-@interface PasswordNotKnownView : PasswordViewController
-- (void)updatePassword:(NSString *)inPassword;
+#import <Foundation/Foundation.h>
+
+@interface KeychainMinderAgent : NSObject <NSXPCListenerDelegate, KeychainMinderAgentProtocol>
+
+- (void)setPassword:(NSData *)inPassword withReply:(void (^)(BOOL))reply;
+- (void)getPasswordWithReply:(void (^)(NSData *))reply;
+- (void)run;
+
 @end

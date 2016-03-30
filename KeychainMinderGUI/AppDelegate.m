@@ -17,6 +17,8 @@
 #import "PasswordKnownView.h"
 #import "PasswordNotKnownView.h"
 
+#import "KeychainMinderAgentProtocol.h"
+
 @import QuartzCore;
 
 @interface AppDelegate ()
@@ -25,8 +27,13 @@
 
 @property (weak) IBOutlet NSImageView *imageView;
 
-@property PasswordKnownView *knownView;
-@property PasswordNotKnownView *notKnownView;
+@property (weak) IBOutlet PasswordKnownView *knownView;
+@property (weak) IBOutlet PasswordNotKnownView *notKnownView;
+
+@property NSXPCConnection *connectionToService;
+@property id remoteObject;
+@property (nonatomic, strong) NSString *password;
+
 @end
 
 @implementation AppDelegate
@@ -36,10 +43,15 @@
   [self.window setMovable:NO];
   [self.window setCanBecomeVisibleWithoutLogin:YES];
   [self.window setCanHide:NO];
-
-  self.knownView = [[PasswordKnownView alloc] init];
-  self.notKnownView = [[PasswordNotKnownView alloc] init];
-
+  self.connectionToService = [[NSXPCConnection alloc]
+                                  initWithMachServiceName:kKeychainMinderAgentServiceName
+                                                  options:NSXPCConnectionPrivileged];
+  self.connectionToService.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:
+                                                       @protocol(KeychainMinderAgentProtocol)];
+  [self.connectionToService resume];
+  self.remoteObject = [self.connectionToService remoteObjectProxyWithErrorHandler:^(NSError *err) {
+    NSLog(@"%@", [err description]);
+  }];
   [self.window makeFirstResponder:nil];
   [NSApp activateIgnoringOtherApps:YES];
 
@@ -58,12 +70,28 @@
   [self updateIcon];
   [[self.viewArea subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
   [[self.viewArea animator] addSubview:self.knownView.view];
+  [self.remoteObject getPasswordWithReply:^(NSData *inPassword) {
+    if (inPassword) {
+      _password = (NSString *)[NSKeyedUnarchiver unarchiveObjectWithData:inPassword];
+      [self.knownView updatePassword:_password];
+    }
+  }];
 }
 
 - (IBAction)passwordUnknown:(id)sender {
   [self updateIcon];
   [[self.viewArea subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
   [[self.viewArea animator] addSubview:self.notKnownView.view];
+  [self.remoteObject getPasswordWithReply:^(NSData *inPassword) {
+    if (inPassword) {
+      _password = (NSString *)[NSKeyedUnarchiver unarchiveObjectWithData:inPassword];
+      [self.notKnownView updatePassword:_password];
+    }
+  }];
+}
+
+-(void)applicationWillTerminate:(NSNotification *)notification {
+  [self.connectionToService invalidate];
 }
 
 @end

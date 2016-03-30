@@ -12,8 +12,7 @@
 ///    See the License for the specific language governing permissions and
 ///    limitations under the License.
 
-@import Foundation;
-@import OpenDirectory;
+#import <Foundation/Foundation.h>
 
 ///
 ///  Retrieves a mutable array from the plist on disk.
