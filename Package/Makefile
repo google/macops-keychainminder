@@ -17,6 +17,7 @@ PAYLOAD:=pack-SecurityAgentPlugin-KeychainMinder.bundle \
 				 pack-script-postinstall
 
 KeychainMinder.bundle:
+	@pod install
 	@cd .. && xcodebuild -workspace KeychainMinder.xcworkspace -scheme KeychainMinder -configuration Archive -derivedDataPath build
 	@cp -R ../build/Build/Products/Release/KeychainMinder.bundle .
 
