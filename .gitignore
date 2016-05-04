@@ -5,6 +5,4 @@ Pods
 *.pkg
 *KeychainMinder.bundle
 *.xcodeproj/xcuserdata
-*.xcodeproj/project.xcworkspace
 *.xcworkspace/xcuserdata
-*.xcworkspace/xcshareddata
