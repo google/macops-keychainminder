@@ -18,7 +18,7 @@ user and giving them the option to either change the password (using both old
 and new passwords) or reset the keychain.
 
 ## Testing
-Keychain Minder is not longer deployed by macops. New versions of macOS may break Keychain Minder. Issues and pull requests are welcome.
+Keychain Minder is no longer in use at Google and while we will continue to maintain it as best as we can, it will not be as well tested on future OS releases. We will still be responding to issues and pull requests.
 
 Keychain Minder has had very little testing so far but has been known to
 work on 10.9.5, 10.10.5 and 10.11.5.
