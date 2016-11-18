@@ -34,11 +34,15 @@ been tried. If you find it works, please let us know!
 
 ## Installation
 
-There's a package Makefile in the Package folder. You'll need
-[The Luggage](https://github.com/unixorn/luggage) installed to build it.
+Download the latest release from the [Releases](https://github.com/google/macops-keychainminder/releases) page.
+It's a standard Apple package, inside a disk image.
 
-By default the package will install KeychainMinder so that it works at the screensaver.
-In order to do this, it has to:
+If you would like to customize the package there's a Makefile in the Package
+folder. You'll need [The Luggage](https://github.com/unixorn/luggage) installed
+to build it.
+
+By default the package installs KeychainMinder so that it works at the
+screensaver. In order to do this, it has to:
  1. Restore the screensaver login UI to an older-looking UI. SecurityAgentPlugins
     do not run under the newer loginwindow-like UI.
  2. Set the screensaver login policy to `authenticate-session-owner`.
